@@ -1,7 +1,13 @@
-# Use the Node.js 20 image
-FROM node:20
+# Use the Node.js 20 slim image
+FROM node:20-slim
 
-# Set the working directory inside the container
+# Install build tools required for sqlite3
+RUN apt-get update && apt-get install -y \
+    build-essential \
+    python3 \
+    && rm -rf /var/lib/apt/lists/*
+
+# Set the working directory
 WORKDIR /app
 
 # Copy package.json and package-lock.json into the container
@@ -10,10 +16,10 @@ COPY package*.json ./
 # Install dependencies
 RUN npm install
 
-# Rebuild sqlite3 from source to ensure compatibility with the environment
+# Rebuild sqlite3 from source
 RUN npm rebuild sqlite3 --build-from-source
 
-# Copy the rest of the application code into the container
+# Copy the rest of the application code
 COPY . .
 
 # Initialize the database
