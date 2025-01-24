@@ -15,8 +15,7 @@ COPY expense_tracker.db ./
 COPY db.js ./
 
 # Install all dependencies, including native ones like sqlite3
-RUN apk add --no-cache --update musl-dev && \
-    npm install
+RUN npm install --build-from-source
 
 # Copy the application code, including init_db.js
 COPY . .
