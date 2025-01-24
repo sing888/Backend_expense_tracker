@@ -19,11 +19,9 @@ RUN npm install
 # Copy the rest of the application code
 COPY . .
 
-# Initialize the database
-RUN node init_db.js
-
 # Expose the port your app runs on
 EXPOSE 3000
 
 # Start the application
-CMD ["npm", "start"]
+CMD ["sh", "-c", "node init_db.js && npm start"]
+
