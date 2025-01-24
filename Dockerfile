@@ -1,27 +1,25 @@
-# Use the Node.js 20 slim image
 FROM node:20-slim
 
-# Install build tools required for sqlite3
+# Install build tools for native modules (like sqlite3)
 RUN apt-get update && apt-get install -y \
     build-essential \
     python3 \
     && rm -rf /var/lib/apt/lists/*
 
-# Set the working directory
 WORKDIR /app
 
-# Copy package.json and package-lock.json into the container
+# Copy package.json and package-lock.json
 COPY package*.json ./
+COPY init_db.js ./
+COPY expense_tracker.db ./
+COPY db.js ./
 
-# Install dependencies
-RUN npm install
+# Install all dependencies, including native ones like sqlite3
+RUN npm install --build-from-source
 
-# Copy the rest of the application code
+# Copy the application code, including init_db.js
 COPY . .
 
-# Expose the port your app runs on
 EXPOSE 3000
 
-# Start the application
-CMD ["sh", "-c", "node init_db.js && npm start"]
-
+CMD ["npm", "start"]
