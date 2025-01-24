@@ -1,40 +1,55 @@
-# Back End Expense Tracker
+# Backend Expense Tracker
 
-This is a simple expense tracker application built using Node.js, Express.js, and SQLite3. It allows users to create accounts, add expenses, and view their expenses. The application uses JWT (JSON Web Tokens) for authentication and authorization.
+A simple expense tracker application built with **Node.js**, **Express.js**, and **SQLite3**. Users can create accounts, add expenses, and view their expenses. The app uses **JWT (JSON Web Tokens)** for authentication and authorization.
+
+---
 
 ## Getting Started
-To get started, clone the repository and install the dependencies:
 
-```
-git clone https://github.com/sing888/Backend_expense_tracker.git
-cd Backend_expense_tracker
-npm install
-```
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/sing888/Backend_expense_tracker.git
+   cd Backend_expense_tracker
+   ```
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+
+---
 
 ## Running the Application
-To run the application, use the following command:
 
-```
-npm start
-node init_db.js
-node app.js
-```
+1. Initialize the database:
+   ```bash
+   node init_db.js
+   ```
+2. Start the server:
+   ```bash
+   npm start
+   ```
+   Alternatively, run:
+   ```bash
+   node app.js
+   ```
 
-The `init_db.js` file creates the SQLite3 database and the `app.js` file starts the server.
+---
 
 ## API Endpoints
 
-### Authentication
+### **Authentication**
 
-| Method | Endpoint | Description       |
-| --- | --- |-------------------|
-| POST | /register | Register a new user |
-| POST | /login | Login a user      |
-| POST | /refresh | Refresh Token     |
+| Method | Endpoint   | Description         | Body                                                          |
+|--------|------------|---------------------|---------------------------------------------------------------|
+| POST   | /register  | Register a new user | `{"username": "string", "email": "string", "password": "string"}` |
+| POST   | /login     | Log in a user       | `{"email": "string", "password": "string"}`                    |
+| POST   | /refresh   | Refresh token       | `{"refreshToken": "string"}`                                   |
 
-### Expenses
+### **Expenses**
 
-| Method | Endpoint          | Description |
-| --- |-------------------| --- |
-| GET | expenses/:id      | Get a specific expense |
-| POST | /expenses         | Create a new expense |
+| Method | Endpoint       | Description            | Body                                                                                   |
+|--------|----------------|------------------------|----------------------------------------------------------------------------------------|
+| GET    | /expenses/:id  | Get a specific expense | None                                                                                   |
+| POST   | /expenses      | Create a new expense   | `{"userId": int, "amount": float, "category": "string", "date": "string", "notes": "string"}` |
+
+---
