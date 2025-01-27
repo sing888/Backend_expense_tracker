@@ -35,9 +35,8 @@ function authenticateToken(req, res, next) {
         req.user = payload; // Attach user info to the request
         next();
     });
+
 }
-
-
 
 module.exports = authenticateToken;
 
